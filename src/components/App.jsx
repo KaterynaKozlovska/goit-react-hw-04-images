@@ -29,7 +29,7 @@ const App = () => {
       const options = { searchQuery, currentPage, pageSize };
       try {
         const { data } = await imageFinderApi(options);
-        setImages(state => [...state, ...data.hits]);
+        setImages(state => [...state, ...data.Hits]);
         setTotalHits(data.totalHits);
         setShowScroll(true);
         setError(null);
