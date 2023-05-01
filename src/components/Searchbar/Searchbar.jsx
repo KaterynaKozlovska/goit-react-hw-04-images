@@ -3,39 +3,43 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 const Searchbar = ({ onSubmit }) => {
-  const [imageName, setImageName] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleNameChange = e => {
-    setImageName(e.currentTarget.value.toLowerCase());
-
-    const handleSubmit = e => {
-      e.preventDefault();
-
-      onSubmit(setImageName);
-      setImageName(imageName);
-    };
-
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={handleSubmit}>
-          <button type="submit" className={css.SearchForm__button}>
-            <span className={css.SearchForm__button__label}>Search</span>
-          </button>
-
-          <input
-            className={css.SearchForm__input}
-            onChange={handleNameChange}
-            name="imageName"
-            value={imageName}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
+  const handleChange = e => {
+    setSearchQuery(e.target.value.toLowerCase());
   };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    onSubmit(searchQuery);
+    reset();
+  };
+
+  const reset = () => {
+    setSearchQuery('');
+  };
+
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css.SearchForm__button}>
+          <span className={css.SearchForm__button__label}>Search</span>
+        </button>
+
+        <input
+          className={css.SearchForm__input}
+          onChange={handleChange}
+          name="searchQuery"
+          value={searchQuery}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
 };
 
 Searchbar.propTypes = {
