@@ -133,7 +133,7 @@ const ImageGallery = ({}) => {
 };
 
 ImageGallery.propTypes = {
-  imageName: PropTypes.string.isRequired,
+  imageName: PropTypes.array.isRequired,
   getModalContent: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
 };

@@ -5,37 +5,34 @@ import Modal from './Modal/Modal';
 import css from './app.module.css';
 
 const App = () => {
-   const [imageName, setImageNames] = useState([])
-  state = {
-    imageName: '',
-    showModal: false,
-    modalContent: null,
-  };
-  handleFormSubmit = imageName => {
-    this.setState({ imageName });
+  const [imageName, setImageNames] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(false);
+  // state = {
+  //   imageName: '',
+  //   showModal: false,
+  //   modalContent: null,
+  // };
+  const handleFormSubmit = imageName => {
+    setImageNames(imageName);
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  const toggleModal = () => {
+    setShowModal(showModal);
   };
-  getModalContent = modalContent => {
-    this.setState({ modalContent });
+  const getModalContent = modalContent => {
+    setModalContent(modalContent);
   };
-  render() {
-    const { showModal, modalContent, imageName } = this.state;
-    return (
-      <div className={css.App}>
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery
-          getModalContent={this.getModalContent}
-          imageName={imageName}
-          openModal={this.toggleModal}
-        />
-        {showModal && <Modal onClose={this.toggleModal} data={modalContent} />}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={css.App}>
+      <Searchbar onSubmit={handleFormSubmit} />
+      <ImageGallery
+        getModalContent={getModalContent}
+        imageName={imageName}
+        openModal={toggleModal}
+      />
+      {showModal && <Modal onClose={toggleModal} data={modalContent} />}
+    </div>
+  );
+};
 export default App;
