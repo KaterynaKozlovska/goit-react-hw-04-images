@@ -1,10 +1,10 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { default as Searchbar } from './Searchbar/Searchbar';
 import { default as ImageGallery } from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import css from './app.module.css';
 
-export class App extends Component {
+export class App {
   state = {
     imageName: '',
     showModal: false,

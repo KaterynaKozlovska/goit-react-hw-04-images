@@ -1,38 +1,30 @@
 import css from './Searchbar.module.css';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { useState } from 'react';
 
-class Searchbar extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+const Searchbar = ({ onSubmit }) => {
+  const [imageName, setImageName] = useState('');
 
-  state = {
-    imageName: '',
-  };
+  const handleNameChange = e => {
+    setImageName(e.currentTarget.value.toLowerCase());
 
-  handleNameChange = event => {
-    this.setState({ imageName: event.currentTarget.value.toLowerCase() });
-  };
+    const handleSubmit = e => {
+      e.preventDefault();
 
-  handleSubmit = event => {
-    event.preventDefault();
+      onSubmit(setImageName);
+      setImageName(imageName);
+    };
 
-    this.props.onSubmit(this.state.imageName);
-    this.setState({ imageName: '' });
-  };
-  render() {
-    const { imageName } = this.state;
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm} onSubmit={this.handleSubmit}>
+        <form className={css.SearchForm} onSubmit={handleSubmit}>
           <button type="submit" className={css.SearchForm__button}>
             <span className={css.SearchForm__button__label}>Search</span>
           </button>
 
           <input
             className={css.SearchForm__input}
-            onChange={this.handleNameChange}
+            onChange={handleNameChange}
             name="imageName"
             value={imageName}
             type="text"
@@ -43,7 +35,11 @@ class Searchbar extends Component {
         </form>
       </header>
     );
-  }
-}
+  };
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;
