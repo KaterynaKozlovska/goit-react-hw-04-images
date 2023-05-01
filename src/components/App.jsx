@@ -4,7 +4,8 @@ import { default as ImageGallery } from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import css from './app.module.css';
 
-export class App {
+const App = () => {
+   const [imageName, setImageNames] = useState([])
   state = {
     imageName: '',
     showModal: false,
