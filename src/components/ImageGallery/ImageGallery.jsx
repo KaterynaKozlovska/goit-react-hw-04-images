@@ -3,7 +3,7 @@ import css from './ImageGallery.module.css';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
 
-const ImageGallery = ({ images, ...otherProps }) => {
+const ImageGallery = ({ images }) => {
   return (
     <>
       <ul className={css.gallery} id="gallery">
@@ -13,7 +13,6 @@ const ImageGallery = ({ images, ...otherProps }) => {
             original={largeImageURL}
             preview={webformatURL}
             description={tags}
-            {...otherProps}
           />
         ))}
       </ul>
@@ -22,8 +21,14 @@ const ImageGallery = ({ images, ...otherProps }) => {
 };
 
 ImageGallery.propTypes = {
-  otherProps: PropTypes.any.isRequired,
-  images: PropTypes.array.isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default ImageGallery;

@@ -4,14 +4,14 @@ import { default as ImageGallery } from './ImageGallery/ImageGallery';
 import css from './app.module.css';
 import Modal from './Modal/Modal';
 import ButtonLoadMore from './Button/Button';
-import imageFinderApi from './imageFinderApi';
+import imageFinderApi from '../services/imageFinderApi';
 
 const App = () => {
   const [images, setImages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
-  const [totalHits, setTotalHits] = useState(0);
+  const [totalImages, setTotalImages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalDescr, setModalDescr] = useState('');
@@ -19,7 +19,7 @@ const App = () => {
   const [showScroll, setShowScroll] = useState(false);
   const [error, setError] = useState(null);
 
-  const totalPage = Math.ceil(totalHits / pageSize);
+  const totalPage = Math.ceil(totalImages / pageSize);
 
   useEffect(() => {
     if (searchQuery === '') return;
@@ -28,9 +28,9 @@ const App = () => {
       setIsLoading(true);
       const options = { searchQuery, currentPage, pageSize };
       try {
-        const { data } = await imageFinderApi(options);
-        setImages(prevImages => [...prevImages, ...responseImages]);
-        setTotalHits(data.total.hits);
+        const { images, totalImages } = await imageFinderApi(options);
+        setImages(prevState => [...prevState, images]);
+        setTotalImages(totalImages);
         setShowScroll(true);
         setError(null);
       } catch (error) {
@@ -81,7 +81,7 @@ const App = () => {
     setSearchQuery('');
     setCurrentPage(1);
     setPageSize(12);
-    setTotalHits(0);
+    setTotalImages(0);
     setIsLoading(false);
     setShowModal(false);
     setModalDescr('');

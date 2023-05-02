@@ -9,8 +9,9 @@ const ImageGalleryItem = ({
   onImageClick,
 }) => {
   return (
-    <li className={css.ImageGalleryItem} key={id}>
+    <li className={css.ImageGalleryItem}>
       <img
+        key={id}
         className={css.ImageGalleryItem__image}
         src={preview}
         data-source={original}
