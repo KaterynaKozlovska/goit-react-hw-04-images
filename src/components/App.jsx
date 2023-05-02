@@ -16,8 +16,8 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalDescr, setModalDescr] = useState('');
   const [modalImg, setModalImg] = useState('');
-  const [showScroll, setShowScroll] = useState(false);
-  const [error, setError] = useState(null);
+  const [setShowScroll] = useState(false);
+  const [setError] = useState(null);
 
   const totalPage = Math.ceil(totalImages / pageSize);
 
